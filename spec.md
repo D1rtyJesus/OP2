@@ -6,7 +6,7 @@ Main goal: створити логічну ER-модель для персона
 
     Snake (Снейк): id (PK, string), codename (string: Solid, Naked, Venom, Liquid, Solidus), is_clone (boolean).
 
-    Game (Гра): id (PK, string), title (string), release_year (number).
+    Game (Гра): id (PK, string), title (string), release_year (number), chron_order (number).
 
 Зв'язки:
 
