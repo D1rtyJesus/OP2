@@ -1,23 +1,26 @@
+```mermaid
 erDiagram
-    CHARACTER {
+    Character {
         string id PK
         string name
         string role_type
         string final_status
     }
 
-    SNAKE {
+    Snake {
         string id PK
         string codename
         boolean is_clone
     }
 
-    GAME {
+    Game {
         string id PK
         string title
         number release_year
+        number chron_order
     }
 
-    CHARACTER }o--o{ GAME : "з'являється у"
-    SNAKE }o--o{ GAME : "головний протагоніст у"
-    CHARACTER }o--o{ SNAKE : "взаємодіє з"
+    Character }o--o{ Game : "zjavlyayetsya_u"
+    Snake }o--o{ Game : "protagonist_u"
+    Character }o--o{ Snake : "vzaiemodiye_z"
+```
