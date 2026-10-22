@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
     %% Actors
     Archivist(["fa:fa-user Archivist<br/>(Reader)"])
@@ -35,3 +36,4 @@ flowchart LR
     %% Actor to System connections
     Archivist --> UC_Explore
     KonamiAPI --> UC_Sync
+```
