@@ -1,39 +1,42 @@
 ```mermaid
 flowchart LR
     %% Actors
-    Archivist(["fa:fa-user Archivist<br/>(Reader)"])
-    KonamiAPI(["fa:fa-server Konami Archive<br/>(External API)"])
+    Archivist(["Archivist<br/>(Читач)"])
+    KonamiAPI(["Konami Archive API<br/>(Зовнішній сервіс)"])
 
     %% System Boundary
     subgraph System ["Система: MGS Lore Database"]
         direction TB
 
-        %% Core & Generalization Use Cases
+        %% Core Use Cases
         UC_Explore(["UC-1: Дослідження каталогу"])
         UC_Timeline(["UC-1.1: Перегляд таймлайну ігор"])
         UC_Filter(["UC-1.2: Фільтрація персонажів"])
         UC_Search(["UC-1.3: Пошук за назвою / кодом"])
         UC_Dossier(["UC-1.4: Перегляд досьє"])
 
-        %% Supporting & Extension Use Cases
-        UC_Stale(["UC-5: Показ банера<br/>застарілих даних"])
-        UC_Conflict(["UC-3: Фіксація<br/>конфлікту канону"])
+        %% Additional Use Cases
         UC_Sync(["UC-2: Синхронізація метаданих"])
-        UC_Lock(["UC-4: Блокування запису<br/>при оновленні"])
+        UC_Conflict(["UC-3: Фіксація конфлікту канону"])
+        UC_Lock(["UC-4: Блокування запису"])
+        UC_Stale(["UC-5: Показ банера застарілості"])
 
-        %% Generalization hierarchy (UML triangle arrow: --|>)
-        UC_Timeline --|> UC_Explore
-        UC_Filter --|> UC_Explore
-        UC_Search --|> UC_Explore
-        UC_Dossier --|> UC_Explore
+        %% Generalization
+        UC_Timeline -->|"«generalization»"| UC_Explore
+        UC_Filter -->|"«generalization»"| UC_Explore
+        UC_Search -->|"«generalization»"| UC_Explore
+        UC_Dossier -->|"«generalization»"| UC_Explore
 
-        %% Include / Extend relationships (UML dotted arrow: -.->)
-        UC_Sync -.->|«include»| UC_Lock
-        UC_Conflict -.->|«extend»<br/>(при розбіжності)| UC_Sync
-        UC_Stale -.->|«extend»<br/>(при збої API)| UC_Dossier
+        %% Include relationships
+        UC_Sync -.->|"«include»"| UC_Lock
+
+        %% Extend relationships
+        UC_Conflict -.->|"«extend» (розбіжність)"| UC_Sync
+        UC_Stale -.->|"«extend» (офлайн API)"| UC_Dossier
     end
 
-    %% Actor to System connections
+    %% Actor to Use Case Links
     Archivist --> UC_Explore
     KonamiAPI --> UC_Sync
+
 ```
